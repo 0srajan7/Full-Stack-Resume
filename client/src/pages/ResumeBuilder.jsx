@@ -47,7 +47,7 @@ const ResumeBuilder = () => {
 
   const loadExistingResume = async()=>{
     try {
-      const {data}=await api.get('/api/resumes/get/' + resumeId,{
+      const {data}=await api.get('https://resume-backend-ojz5.onrender.com/api/resumes/get/' + resumeId,{
         headers:{Authorization:token}
       })
       if(data.resume)
@@ -100,7 +100,7 @@ const ResumeBuilder = () => {
 
   const changeResumeVisibility = async () =>{
     try {
-      const {data}=await api.put('/api/resumes/update', {
+      const {data}=await api.put('https://resume-backend-ojz5.onrender.com/api/resumes/update', {
         resumeId,
         resumeData: { ...resumeData, public: !resumeData.public }
       }, { headers: { Authorization: token } });
@@ -134,7 +134,7 @@ const ResumeBuilder = () => {
       if (typeof resumeData.personal_info.image === 'object') {
         delete updatedResumeData.personal_info.image;
       }
-      const {data} = await api.put('/api/resumes/update', {
+      const {data} = await api.put('https://resume-backend-ojz5.onrender.com/api/resumes/update', {
         resumeId,
         resumeData: updatedResumeData,
         removeBackground: removeBackground ? "yes" : undefined

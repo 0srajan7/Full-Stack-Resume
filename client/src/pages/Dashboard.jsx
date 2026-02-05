@@ -25,7 +25,7 @@ const Dashboard = () => {
   const loadAllResumes = async () => {
     //fetch all resumes from backend
     try {
-      const {data} = await api.get(`/api/users/resumes`,{headers:{
+      const {data} = await api.get(`https://resume-backend-ojz5.onrender.com/api/users/resumes`,{headers:{
       Authorization:token
       }})
       setAllResumes(data.resumes)
@@ -39,7 +39,7 @@ const Dashboard = () => {
     try {
       event.preventDefault()
       //api call to create resume
-      const {data} = await api.post(`/api/resumes/create`,{title},{headers:{
+      const {data} = await api.post(`https://resume-backend-ojz5.onrender.com/api/resumes/create`,{title},{headers:{
       Authorization:token
       }})
       setAllResumes([...allResumes,data.resume])
@@ -58,7 +58,7 @@ const Dashboard = () => {
     setIsLoading(true)
     try {
       const resumeText=await pdfToText(resume)
-      const {data} = await api.post(`/api/ai/upload-resume`,{title,resumeText},{headers:{
+      const {data} = await api.post(`https://resume-backend-ojz5.onrender.com/api/ai/upload-resume`,{title,resumeText},{headers:{
         Authorization:token
       }})
       setTitle('')
@@ -78,7 +78,7 @@ const Dashboard = () => {
   const editTitle = async (event) => {
     try {
       event.preventDefault()
-      const {data} = await api.put(`/api/resumes/update`,{resumeId:editResumeId,
+      const {data} = await api.put(`https://resume-backend-ojz5.onrender.com/api/resumes/update`,{resumeId:editResumeId,
       resumeData:{title}},{headers:{Authorization:token }})
       setAllResumes(allResumes.map(resume => resume._id === editResumeId ? {...resume, title}: resume))
       setTitle('')
@@ -93,7 +93,7 @@ const Dashboard = () => {
       try {
         const confirm=window.confirm("Are you sure you want to delete this resume?")
     if(confirm){
-      const {data} = await api.delete(`/api/resumes/delete/${resumeId}`,{headers:{
+      const {data} = await api.delete(`https://resume-backend-ojz5.onrender.com/api/resumes/delete/${resumeId}`,{headers:{
       Authorization:token }})
       setAllResumes(allResumes.filter(resume=>resume._id !== resumeId))
       toast.success( data.message)

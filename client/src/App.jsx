@@ -19,7 +19,7 @@ export const App = () => {
     const token=localStorage.getItem('token')
     try {
       if(token){
-        const{data}=await api.get('/api/users/data',{headers:{
+        const{data}=await api.get('https://resume-backend-ojz5.onrender.com/api/users/data',{headers:{
           Authorization:token
         }})
         if(data.user){
